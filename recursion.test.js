@@ -1,0 +1,125 @@
+const {
+  product,
+  longest,
+  everyOther,
+  isPalindrome,
+  findIndex,
+  revString,
+  gatherStrings,
+  binarySearch
+} = require("./recursion");
+
+describe("product", () => {
+  it("returns the product of all numbers in an array", () => {
+    expect(product([2, 3, 4])).toBe(24);
+    expect(product([1, -1, 1, -1, 1, -1])).toBe(-1);
+    expect(product([10])).toBe(10);
+  });
+});
+
+describe("longest", () => {
+  it("returns the length of the longest word in an array of words", () => {
+    expect(longest(["hello", "hi", "hola"])).toBe(5);
+    expect(longest(["abcdefg", "hijklmnop", "qrs", "tuv", "wx", "y", "z"])).toBe(9);
+    expect(longest(["a", "b", "c", "d", "e"])).toBe(1);
+    expect(longest(["abcde"])).toBe(5);
+  });
+});
+
+describe("everyOther", () => {
+  it("returns a string with every other character in the input", () => {
+    expect(everyOther("hello")).toBe("hlo");
+    expect(everyOther("banana stand")).toBe("bnn tn");
+    expect(everyOther("ddoouubbllee")).toBe("double");
+    expect(everyOther("hi")).toBe("h");
+    expect(everyOther("z")).toBe("z");
+  });
+});
+
+describe("isPalindrome", () => {
+  it("returns true if the string is a palindrome", () => {
+    expect(isPalindrome("tacocat")).toBe(true);
+    expect(isPalindrome("racecar")).toBe(true);
+    expect(isPalindrome("a")).toBe(true);
+    expect(isPalindrome("helloolleh")).toBe(true);
+  });
+
+  it("returns false if the string is not a palindrome", () => {
+    expect(isPalindrome("tacodog")).toBe(false);
+    expect(isPalindrome("az")).toBe(false);
+    expect(isPalindrome("goodbye")).toBe(false);
+    expect(isPalindrome("nurse")).toBe(false);
+  });
+});
+
+describe("findIndex", () => {
+  let animals = ["duck", "cat", "pony", "cat"];
+
+  it("returns the first index of the value in the array if the value exists", () => {
+    expect(findIndex(animals, "duck")).toBe(0);
+    expect(findIndex(animals, "cat")).toBe(1);
+    expect(findIndex(animals, "pony")).toBe(2);
+  });
+
+  it("returns -1 if the value does not exist", () => {
+    expect(findIndex(animals, "porcupine")).toBe(-1);
+    expect(findIndex(animals, "turtle")).toBe(-1);
+  });
+});
+
+describe("revString", () => {
+  it("returns a reversed copy of the string", () => {
+    expect(revString("porcupine")).toBe("enipucrop");
+    expect(revString("duck")).toBe("kcud");
+    expect(revString("cat")).toBe("tac");
+    expect(revString("pony")).toBe("ynop");
+  });
+});
+
+describe("gatherStrings", () => {
+  it("gathers all object string values into an array", () => {
+    let whiskey = {
+      name: "Whiskey",
+      age: 5,
+      favFood: "popcorn",
+      color: "black",
+      barks: false
+    };
+    expect(gatherStrings(whiskey).sort()).toEqual(["Whiskey", "popcorn", "black"].sort());
+  });
+
+  it("handles nested objects", () => {
+    let nestedObj = {
+      firstName: "Lester",
+      favoriteNumber: 22,
+      moreData: {
+        lastName: "Testowitz"
+      },
+      funFacts: {
+        moreStuff: {
+          anotherNumber: 100,
+          deeplyNestedString: {
+            almostThere: {
+              success: "you made it!"
+            }
+          }
+        },
+        favoriteString: "nice!"
+      }
+    };
+    expect(gatherStrings(nestedObj).sort()).toEqual(["Lester", "Testowitz", "you made it!", "nice!"].sort());
+  });
+});
+
+describe("binarySearch", () => {
+  it("should find the index of a value in a sorted array", () => {
+    expect(binarySearch([1, 2, 3, 4], 4)).toEqual(3);
+    expect(binarySearch([1, 2], 1)).toEqual(0);
+    expect(binarySearch([1, 2, 3, 4, 5, 6, 7], 6)).toEqual(5);
+  });
+
+  it("should return -1 if the value is not found", () => {
+    expect(binarySearch([1, 2, 3, 4], 0)).toEqual(-1);
+    expect(binarySearch([1, 2], 11)).toEqual(-1);
+  });
+});
